@@ -3,9 +3,9 @@ Set of scripts for specific tasks in scikit-allel. Please note that this is not 
    
 Most scripts assume that you have already loaded your vcf file.  
 This means that you'll already have the following objects loaded:  
-	- **subs** (zarr.hierarchy.Group)  
-	- **ids** (a pandas DataFrame, with individual ids (corresponding to the headers in your vcf) and population as columns  
-	- **gtsub** (a GenotypeArray based on 'subs')  
+	- ***subs*** (zarr.hierarchy.Group)  
+	- ***ids*** (a pandas DataFrame, with individual ids (corresponding to the headers in your vcf) and population as columns  
+	- ***gtsub*** (a GenotypeArray based on 'subs')  
 
 
 Some imports, needed for the below code to run:
@@ -30,12 +30,12 @@ So next time, you can quickly load the data from zarr:
 subs = zarr.open_group(subszarrPath, mode='r')
 ```
 
-Then, you create **gtsub**:  
+Then, you create ***gtsub***:  
 ```
 gtsub = al.GenotypeArray(subs['calldata/GT'])
 ```
   
-And load **ids**:
+And load ***ids***:
 ```
 ids = pd.read_csv('your_ids.csv', delimiter= 'your delimiter')
 ```  
@@ -43,12 +43,12 @@ ids = pd.read_csv('your_ids.csv', delimiter= 'your delimiter')
 
 ## Some useful things to do  
 
-You can easily inspect the structure of **subs** with the following:
+You can easily inspect the structure of ***subs*** with the following:
 ```
 subs.tree(expand= True)
 ```
 
-Further, check if the order of samples in **ids** and **subs** are the same:
+Further, check if the order of samples in ***ids*** and ***subs*** are the same:
 ```
 np.all(list(subs['samples']) == ids['id'].values)
 ```
