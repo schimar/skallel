@@ -35,6 +35,8 @@ ids = pd.read_csv('your_ids.csv', delimiter= 'your delimiter')
 ```  
 
 
+## Some useful things to do  
+
 You can easily inspect the structure of **subs** with the following:
 ```
 subs.tree(expand= True)
