@@ -1,5 +1,5 @@
 # skallel
-Set of scripts for specific tasks in scikit-allel 
+Set of scripts for specific tasks in scikit-allel. Please note that this is not intended to be a full documentation for scikit-allel, but simply a collection of scripts. For the full documentation scikit-allel, please see the [official scikit-allel documentation](https://scikit-allel.readthedocs.io/en/stable/index.html).  
   
 Most scripts assume that you have already loaded your vcf file.  
 This means that you'll already have the following objects loaded:  
