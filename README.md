@@ -1,6 +1,6 @@
 # skallel
-Set of scripts for specific tasks in scikit-allel. Please note that this is not intended to be a full documentation for scikit-allel, but simply a collection of scripts. For the full documentation scikit-allel, please see the [official scikit-allel documentation](https://scikit-allel.readthedocs.io/en/stable/index.html).  
-  
+Set of scripts for specific tasks in scikit-allel. Please note that this is not intended to be a full documentation for scikit-allel, but simply a collection of scripts. For the full documentation scikit-allel, please see the [official scikit-allel documentation](https://scikit-allel.readthedocs.io/en/stable/index.html). This code has been run and tested on Python version 3.7.5 with scikit-allel version 1.2.1. 
+   
 Most scripts assume that you have already loaded your vcf file.  
 This means that you'll already have the following objects loaded:  
 	- **subs** (zarr.hierarchy.Group)  
@@ -8,7 +8,13 @@ This means that you'll already have the following objects loaded:
 	- **gtsub** (a GenotypeArray based on 'subs')  
 
 
-
+Some imports, needed for the below code to run:
+``` 
+import allel as al
+import pandas as pd
+import zarr
+```
+  
 I recommend converting your vcf to zarr for easier reading, which can be done as follows:
 ```
 
