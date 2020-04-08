@@ -169,52 +169,52 @@ pop_colours = {
 }
 
 
-def plot_pca_coords(coords, model, pc1, pc2, ax, sample_population):
+
+def plot_pca_coords(coords, model, pc1, pc2, ax, pops, pcols):
     sns.despine(ax=ax, offset=5)
     x = coords[:, pc1]
     y = coords[:, pc2]
-    for pop in populations:
-        flt = (sample_population == pop)
-        ax.plot(x[flt], y[flt], marker='o', linestyle=' ', color=pop_colours[pop],
+    for pop in pops.unique():
+        flt = (pops.values == pop)
+        ax.plot(x[flt], y[flt], marker='o', linestyle=' ', color= pcols[pop],
                 label=pop, markersize=6, mec='k', mew=.5)
     ax.set_xlabel('PC%s (%.1f%%)' % (pc1+1, model.explained_variance_ratio_[pc1]*100))
     ax.set_ylabel('PC%s (%.1f%%)' % (pc2+1, model.explained_variance_ratio_[pc2]*100))
 
 
-def fig_pca(coords, model, title, sample_population=None):
-    if sample_population is None:
-        sample_population = ids.pops.values
+def fig_pca(coords, model, title, pops, pcols):
     # plot coords for PCs 1 vs 2, 3 vs 4
     fig = plt.figure(figsize=(10, 5))
     ax = fig.add_subplot(1, 2, 1)
-    plot_pca_coords(coords, model, 0, 1, ax, sample_population)
+    plot_pca_coords(coords, model, 0, 1, ax, pops= pops, pcols= pcols)
     ax = fig.add_subplot(1, 2, 2)
-    plot_pca_coords(coords, model, 2, 3, ax, sample_population)
+    plot_pca_coords(coords, model, 2, 3, ax, pops= pops, pcols= pcols)
     ax.legend(bbox_to_anchor=(1, 1), loc='upper left')
     fig.suptitle(title, y=1.02)
     fig.tight_layout()
 
-fig_pca(coords1, model1, 'Figure 4. Conventional PCA.')
+
+fig_pca(coords1, model1, 'Figure 4. Conventional PCA.', pops = ids.pops, pcols= pop_cols)
 
 
 
 
 # pca without LD pruning for the random subset of 100k loci with Patterson's scaling
 coords2, model2 = al.pca(gnr, n_components=10, scaler='patterson')
-fig_pca(coords2, model2, 'Figure 5. Conventional PCA without LD pruning.')
+fig_pca(coords2, model2, 'Figure 5. Conventional PCA without LD pruning.', pops = ids.pops, pcols= pop_cols)
 
 # now for the full set (gtseg) with Patterson's scaling
 #   NOTE: probably do not run this on your laptop
 coords2all, model2all = al.pca(nAltSub, n_components=10, scaler='patterson')
-fig_pca(coords2all, model2all, 'Conventional PCA without LD pruning.')
+fig_pca(coords2all, model2all, 'Conventional PCA without LD pruning.', pops = ids.pops, pcols= pop_cols)
 
 # pca + LD-pruning, without Patterson's scaling
 coords3, model3 = al.pca(gnu, n_components=10, scaler=None)
-fig_pca(coords3, model3, 'Figure 6. Conventional PCA without variance scaling.')
+fig_pca(coords3, model3, 'Figure 6. Conventional PCA without variance scaling.', pops = ids.pops, pcols= pop_cols)
 
 # randomized PCA with LD-pruning and Patterson's scaling
 coords5, model5 = al.randomized_pca(gnu, n_components=10, scaler='patterson')
-fig_pca(coords5, model5, 'Figure 8. Randomized PCA.')
+fig_pca(coords5, model5, 'Figure 8. Randomized PCA.', pops = ids.pops, pcols= pop_cols)
 
 # pca with even sample sizes NOTE: not really needed here, see alimanfoo's Fast PCA site
 # (https://alimanfoo.github.io/2015/09/28/fast-pca.html)
