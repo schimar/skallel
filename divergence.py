@@ -1,6 +1,7 @@
 #  minimal example for the estimation of diversity statistics from a vcf file
 
-# In this script, we do the following:
+# In this script, I calculate different types of Fst estimators:
+
 
 
 #####################################
@@ -25,12 +26,36 @@ sns.set_style('ticks')
 ######################################
 
 
+## first, we subset all variants with segregating alleles
+
+subpops = {
+    'all': list(range(len(ids))),
+    'A': ids[ids.pops == 'A'].index.tolist(),
+    'N': ids[ids.pops == 'N'].index.tolist(),
+    'S': ids[ids.pops == 'S'].index.tolist(),
+}
+
+ac_subpops = gtsub.count_alleles_subpops(subpops, max_allele= 1)
+
+segAll = ac_subpops['all'].is_segregating()[:]
+
+gtseg = gtsub.compress(segAll, axis= 0)
+
+
+########
+
+## Weir & Cockerham's Fst pfor each locus
+
 a, b, c, = al.weir_cockerham_fst(gtseg, list(subpops.values())[1:])
 
 # estimate theta (a.k.a. Fst) for each variant & allele directly:
 fst = a / (a + b + c)
 
-# compare Hudson's and W&C's per locus Fst:
+
+
+
+# compare Hudson's and Weir & Cockerham's per locus Fst:
+
 # only take variants that are segregating between the two pops
 acu = al.AlleleCountsArray(ac_subpops['S'][:] + ac_subpops['N'][:])
 flt = acu.is_segregating() & (acu.max_allele() == 1)
