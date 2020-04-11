@@ -3,7 +3,7 @@ This repo contains a set of scripts for specific tasks in scikit-allel. Please n
    
 Most scripts assume that you have already loaded your vcf file.  
 This means that you'll already have the following objects loaded:  
-	- ***subs*** (zarr.hierarchy.Group)  
+	- ***subs*** (zarr.hierarchy.Group object of your vcf)  
 	- ***ids*** (a pandas DataFrame, with individual ids (corresponding to the headers in your vcf) and population as columns  
 	- ***gtsub*** (a GenotypeArray based on 'subs')  
 
