@@ -26,15 +26,16 @@ sns.set_style('white')
 sns.set_style('ticks')
 
 ######################################
+
+## create VariantChunkedTable object
 variants = al.VariantChunkedTable(subs['variants'], index= 'CHROM')
 
 
-## count (and plot) the number of variants per scaffold
+## count the number of variants per scaffold
 scafs, scaf_counts = np.unique(variants['CHROM'], return_counts= True)
 scafdf = pd.DataFrame({'scaffold': scafs, 'nVariables': scaf_counts})
 
-#plt.figure(figsize= (16,4))
-#sns.countplot(scafdf['nVariables'])
+
 ## barplot of number of variants per scaffold
 fig, axes = plt.subplots(figsize= (14,4))
 axes.plot(np.arange(len(scafdf['nVariables'])), scafdf['nVariables'])
@@ -56,11 +57,6 @@ scafdf.describe()
 
 
 
-
-
-
-###
-gtsub.is_het()
 
 
 
@@ -91,5 +87,14 @@ def plot_windowed_variant_density(pos, window_size, title=None):
 pos = variants['POS'][:]
 
 plot_windowed_variant_density(pos, window_size=100000, title='Raw variant density')
+
+
+
+
+
+###
+gtsub.is_het()
+
+
 
 
