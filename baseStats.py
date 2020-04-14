@@ -28,7 +28,7 @@ sns.set_style('ticks')
 ######################################
 
 ## create VariantChunkedTable object
-variants = al.VariantChunkedTable(subs['variants'], index= 'CHROM')
+variants = al.VariantChunkedTable(subs['variants']) #, index= 'CHROM')
 
 
 ## count the number of variants per scaffold
@@ -57,9 +57,9 @@ scafdf.describe()
 
 
 
+vars0 = variants['CHROM' == 'scaffold_0'][:]
 
-
-
+pos0 = vars0['POS']
 # plot windoed variant density
 
 def plot_windowed_variant_density(pos, window_size, title=None):
