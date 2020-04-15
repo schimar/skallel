@@ -1,8 +1,8 @@
 #  minimal example for a first inspection of our variants
 
-
-#       scaffolds
-#       variant density
+#       Depth of Coverage
+#       number of variants per scaffold
+#       variant density (not yet working)
 
 
 
@@ -26,6 +26,46 @@ sns.set_style('whitegrid')
 sns.set_style('ticks')
 
 ######################################
+## explore depth of coverage (DP) in your data
+
+# if you wanted to get overall DP, you could access subs['variants/DP']
+pd.Series(subs['variants/DP'][:]).describe()
+# this gives you DP across all individuals
+
+# if, however, you want to get DP for each individual, then access 'calldata' instead of the 'variants' tree
+dpInds = pd.DataFrame(subs['calldata/DP'][:], columns= ids.id)
+
+# get the basic stats for DP per individual
+dpInds.describe()
+
+# NOTE: you could use sns to plot (e.g.) the mean for each individual. However, for a relatively large DataFrame, this will be very slow
+
+#sns.violinplot(dpInds, estimator= np.mean)
+#sns.barplot(dpInds, estimator= np.mean)
+
+# instead, we can first use the apply method with our favorite function, and then plot these
+dpMu = np.array(dpInds.apply(np.mean))
+dpSd = np.array(dpInds.apply(np.std))
+
+
+def plotDP(dpMu, dpSd, ids):
+    plt.subplots(figsize= (20,5))
+    ax = sns.barplot(np.arange(len(dpMu)), dpMu, hue= ids.pops, dodge= False)
+    ax.set_xlabel('samples')
+    ax.set_ylabel('mean DP')
+    ax.set_title('Depth of Coverage per individual')
+    ax.tick_params(
+        axis='x',          # changes apply to the x-axis
+        which='both',      # both major and minor ticks are affected
+        bottom=False,      # ticks along the bottom edge are off
+        top=False,         # ticks along the top edge are off
+        labelbottom=True)
+    ax.set_xticklabels(ids.id, rotation= 40, ha= 'right', fontsize= 8)
+    ax.errorbar(np.arange(len(dpMu)), y= dpMu, yerr=dpSd, fmt= 'none', ecolor= 'grey')
+    plt.tight_layout()
+
+
+
 
 ## create VariantChunkedTable object
 variants = al.VariantChunkedTable(subs['variants']) #, index= 'CHROM')
@@ -80,9 +120,15 @@ def plotPropHets(propHets, ids):
         top=False,         # ticks along the top edge are off
         labelbottom=True)
     ax.set_xticklabels(ids.id, rotation= 40, ha= 'right', fontsize= 8)
-
+    plt.tight_layout()
 
 plotPropHets(propHets, ids)
+
+
+
+
+
+
 
 
 ##################
