@@ -62,22 +62,27 @@ gtsub.count_het(axis=0)     # axis (0 = across loci, 1 = across samples)
 
 propHets = pd.Series(gtsub.count_het(axis= 0)/len(gtsub))
 
-# plot the proportion of heterozygous genotypes
-plt.subplots(figsize= (20,5))
-ax = sns.barplot(np.arange(len(propHets)), propHets, hue= ids.pops, dodge= False)
-ax.set_ylim([0,1])
-ax.set_xlabel('samples')
-ax.set_ylabel('proportion heterozygous')
-ax.set_title('proportion of heterozygous genotype calls')
-#ax.set_xticks(np.arange(len(propHets)))
-ax.tick_params(
-    axis='x',          # changes apply to the x-axis
-    which='both',      # both major and minor ticks are affected
-    bottom=False,      # ticks along the bottom edge are off
-    top=False,         # ticks along the top edge are off
-    labelbottom=True)
-ax.set_xticklabels(ids.id, rotation= 40, ha= 'right', fontsize= 8)
 
+
+def plotPropHets(propHets, ids):
+    # plot the proportion of heterozygous genotypes
+    plt.subplots(figsize= (20,5))
+    ax = sns.barplot(np.arange(len(propHets)), propHets, hue= ids.pops, dodge= False)
+    ax.set_ylim([0,1])
+    ax.set_xlabel('samples')
+    ax.set_ylabel('proportion heterozygous')
+    ax.set_title('proportion of heterozygous genotype calls')
+    #ax.set_xticks(np.arange(len(propHets)))
+    ax.tick_params(
+        axis='x',          # changes apply to the x-axis
+        which='both',      # both major and minor ticks are affected
+        bottom=False,      # ticks along the bottom edge are off
+        top=False,         # ticks along the top edge are off
+        labelbottom=True)
+    ax.set_xticklabels(ids.id, rotation= 40, ha= 'right', fontsize= 8)
+
+
+plotPropHets(propHets, ids)
 
 
 ##################
