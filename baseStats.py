@@ -38,8 +38,7 @@ dpInds = pd.DataFrame(subs['calldata/DP'][:], columns= ids.id)
 # get the basic stats for DP per individual
 dpInds.describe()
 
-# NOTE: you could use sns to plot (e.g.) the mean for each individual. However, for a relatively large DataFrame, this will be very slow
-
+# NOTE: you could use sns to plot (e.g.) the mean for each individual. For a relatively large DataFrame, however, this will be very slow
 #sns.violinplot(dpInds, estimator= np.mean)
 #sns.barplot(dpInds, estimator= np.mean)
 
@@ -64,7 +63,7 @@ def plotDP(dpMu, dpSd, ids):
     ax.errorbar(np.arange(len(dpMu)), y= dpMu, yerr=dpSd, fmt= 'none', ecolor= 'grey')
     plt.tight_layout()
 
-
+plotDP(dpMu, dpSd, ids)
 
 
 ## create VariantChunkedTable object
