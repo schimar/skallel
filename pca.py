@@ -44,9 +44,9 @@ sns.set_style('ticks')
 # this is a dictionary, with the three keys [all, A, N, S] and values are lists of indices for each respective id
 subpops = {
     'all': list(range(len(ids))),
-    'A': ids[ids.pops == 'A'].index.tolist(),
-    'N': ids[ids.pops == 'N'].index.tolist(),
-    'S': ids[ids.pops == 'S'].index.tolist(),
+    'A': ids[ids['pops'] == 'A'].index.tolist(),
+    'N': ids[ids['pops'] == 'N'].index.tolist(),
+    'S': ids[ids['pops'] == 'S'].index.tolist(),
 }
 
 
@@ -114,7 +114,7 @@ plot_ld(gnu[:1000], 'Figure 3. Pairwise LD after LD pruning.')
 ## PCA using Singular Value Decomposition (SVD) and Patterson's scaling on LD-pruned data (see gnu.shape for dimensions)
 coords1, model1 = al.pca(gnu, n_components=10, scaler='patterson')
 
-populations = ids.pops.unique()
+populations = ids['pops'].unique()
 pop_colours = {
     'A': sns.color_palette()[0],
     'N': sns.color_palette()[1],
@@ -147,27 +147,27 @@ def fig_pca(coords, model, title, pops, pcols):
     fig.tight_layout()
 
 
-fig_pca(coords1, model1, 'Figure 4. Conventional PCA.', pops = ids.pops, pcols= pop_cols)
+fig_pca(coords1, model1, 'Figure 4. Conventional PCA.', pops = ids['pops'], pcols= pop_colours)
 
 
 
 
 ## pca without LD pruning for the random subset of 100k loci with Patterson's scaling
 coords2, model2 = al.pca(gnr, n_components=10, scaler='patterson')
-fig_pca(coords2, model2, 'Figure 5. Conventional PCA without LD pruning.', pops = ids.pops, pcols= pop_cols)
+fig_pca(coords2, model2, 'Figure 5. Conventional PCA without LD pruning.', pops = ids['pops'], pcols= pop_colours)
 
 ## now for the full set (gtseg) with Patterson's scaling
 #   NOTE: probably do not run this on your laptop
 coords2all, model2all = al.pca(nAltSub, n_components=10, scaler='patterson')
-fig_pca(coords2all, model2all, 'Conventional PCA without LD pruning.', pops = ids.pops, pcols= pop_cols)
+fig_pca(coords2all, model2all, 'Conventional PCA without LD pruning.', pops = ids['pops'], pcols= pop_colours)
 
 ## pca + LD-pruning, without Patterson's scaling
 coords3, model3 = al.pca(gnu, n_components=10, scaler=None)
-fig_pca(coords3, model3, 'Figure 6. Conventional PCA without variance scaling.', pops = ids.pops, pcols= pop_cols)
+fig_pca(coords3, model3, 'Figure 6. Conventional PCA without variance scaling.', pops = ids['pops'], pcols= pop_colours)
 
 ## randomized PCA with LD-pruning and Patterson's scaling
 coords5, model5 = al.randomized_pca(gnu, n_components=10, scaler='patterson')
-fig_pca(coords5, model5, 'Figure 8. Randomized PCA.', pops = ids.pops, pcols= pop_cols)
+fig_pca(coords5, model5, 'Figure 8. Randomized PCA.', pops = ids['pops'], pcols= pop_colours)
 
 ## pca with even sample sizes NOTE: not really needed here, see alimanfoo's Fast PCA site
 # (https://alimanfoo.github.io/2015/09/28/fast-pca.html)

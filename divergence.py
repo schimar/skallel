@@ -30,9 +30,9 @@ sns.set_style('ticks')
 
 subpops = {
     'all': list(range(len(ids))),
-    'A': ids[ids.pops == 'A'].index.tolist(),
-    'N': ids[ids.pops == 'N'].index.tolist(),
-    'S': ids[ids.pops == 'S'].index.tolist(),
+    'A': ids[ids['pops'] == 'A'].index.tolist(),
+    'N': ids[ids['pops'] == 'N'].index.tolist(),
+    'S': ids[ids['pops'] == 'S'].index.tolist(),
 }
 
 ac_subpops = gtsub.count_alleles_subpops(subpops, max_allele= 1)
