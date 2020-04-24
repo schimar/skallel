@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 #import matplotlib as mpl
 import seaborn as sns
 sns.set_style('whitegrid')
-sns.set_style('ticks')
+#sns.set_style('ticks')
 
 ######################################
 ## explore depth of coverage (DP) in your data

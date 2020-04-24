@@ -33,8 +33,8 @@ import zarr
 import matplotlib.pyplot as plt
 #import matplotlib as mpl
 import seaborn as sns
-sns.set_style('white')
-sns.set_style('ticks')
+sns.set_style('whitegrid')
+#sns.set_style('ticks')
 
 ######################################
 
