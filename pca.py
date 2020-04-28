@@ -178,7 +178,7 @@ fig_pca(coords5, model5, 'Figure 8. Randomized PCA.', pops = ids['pops'], pcols=
 ## plot a heatmap where the color bar basically represents the correlation between the individuals and the respective principal component.
 # NOTE: Comparisons across PCs are somewhat meaningless here, as the color only shows strength of correlation within a PC, not across PCs.
 
-dfComp_gnu = pd.DataFrame(coords1[:,0:2].T, columns= ids['id'])
+dfComp_gnu = pd.DataFrame(coords1[:,0:4].T, columns= ids['id'])
 
 plt.figure(figsize=(12,6))
 sns.heatmap(dfComp_gnu, cmap= 'plasma')
