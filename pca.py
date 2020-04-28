@@ -80,7 +80,7 @@ def plot_ld(gn, title):
     ax = al.plot_pairwise_ld(m)
     ax.set_title(title)
 
-plot_ld(nAltSub[:1000], 'Figure 1. Pairwise LD.')
+plot_ld(nAltSub[1001:2000], 'Figure 1. Pairwise LD.')
 
 
 ## random subsampling of loci
@@ -172,5 +172,16 @@ fig_pca(coords5, model5, 'Figure 8. Randomized PCA.', pops = ids['pops'], pcols=
 ## pca with even sample sizes NOTE: not really needed here, see alimanfoo's Fast PCA site
 # (https://alimanfoo.github.io/2015/09/28/fast-pca.html)
 # also: see alimanfoo's Fast-PCA post on an evaluation of the lower PCs in randomized PCA
+
+
+
+## plot a heatmap where the color bar basically represents the correlation between the individuals and the respective principal component.
+# NOTE: Comparisons across PCs are somewhat meaningless here, as the color only shows strength of correlation within a PC, not across PCs.
+
+dfComp_gnu = pd.DataFrame(coords1[:,0:2].T, columns= ids['id'])
+
+plt.figure(figsize=(12,6))
+sns.heatmap(dfComp_gnu, cmap= 'plasma')
+
 
 
