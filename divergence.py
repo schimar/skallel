@@ -137,7 +137,7 @@ plot_fst(ac_segS, ac_segN, variants['POS'][:])
 
 ## pairwise distance matrix
 
-dvar = al.pairwise_distance(gtvars.to_n_alt(), metric= 'cityblock')
+dvar = al.pairwise_distance(gtsub.to_n_alt(), metric= 'cityblock')
 
 # heatmap with dendrogram
 
