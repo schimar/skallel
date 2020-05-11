@@ -129,3 +129,39 @@ plot_fst(ac_segS, ac_segN, variants['POS'][:])
 # NOTE: lengths between x & y differ!!!
 
 
+
+
+
+###################
+
+
+## pairwise distance matrix
+
+dvar = al.pairwise_distance(gtvars.to_n_alt(), metric= 'cityblock')
+
+# heatmap with dendrogram
+
+condensedDvar = scipy.spatial.distance.squareform(dvar)
+
+n2col = dict(zip(ids['nest'].unique(), sns.color_palette()))
+rowCols = np.array(ids['nest'].map(n2col))
+
+cDdf = pd.DataFrame(condensedDvar, index= ids['nest'], columns=ids['id'])
+g = sns.clustermap(cDdf, row_colors= rowCols, cmap= 'jet')
+g.ax_heatmap.set_xticklabels(g.ax_heatmap.get_xmajorticklabels(), fontsize = 12)     #ha= 'right', rotation= 40
+g.ax_heatmap.set_yticklabels(g.ax_heatmap.get_ymajorticklabels(), fontsize = 12)
+
+
+# dendrogram
+
+import skbio
+
+dm = skbio.DistanceMatrix(dvar)
+
+lm = sch.average(dm.condensed_form())
+
+fig = plt.figure(figsize=(12,8))
+sch.dendrogram(lm, labels= np.array(ids['id']), orientation= 'top')     #, link_color_func=lambda x: 'black')
+
+
+
