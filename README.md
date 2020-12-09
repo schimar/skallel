@@ -15,7 +15,7 @@ import pandas as pd
 import zarr
 ```
   
-I recommend converting your vcf to zarr for easier reading, which can be done as follows:
+I recommend converting your vcf to zarr for faster reading, which can be done as follows:
 ```
 
 vcfPath = 'your_file.vcf'
